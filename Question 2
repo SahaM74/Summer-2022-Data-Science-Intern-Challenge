@@ -34,7 +34,7 @@ FROM (SELECT MAX(totalOrders),lastname
  
 c) What product was ordered the most by customers in Germany?
 
-The answer is Boston Crab Meat.
+The answer is Boston Crab Meat with 160 number of orders.
 
 The followings are the working process:
 1) Join the two tables "Orders" and "OrderDetails" on OrderID
