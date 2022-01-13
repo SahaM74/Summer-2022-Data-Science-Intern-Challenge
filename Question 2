@@ -1,6 +1,8 @@
 a) How many orders were shipped by Speedy Express in total?
 The answer is 54. 
+
 The followings are the working process: 
+
 1) Join the tables "Orders" and "Shippers" on ShipperID
 2) Count the number of orders where shipper name is "Speedy Express"
 
@@ -13,7 +15,9 @@ FROM Orders INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID WHERE S
 
 b) What is the last name of the employee with the most orders?
 The answer is Peacock.
+
 The followings are the working process:
+
 1) Join the tables "Orders" and "Employees" on employeeID and group them 
 2) count the total number of orders made by each employee
 3) Select the maximum value of the total number of orders and the corresponding lastname 
