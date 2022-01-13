@@ -1,0 +1,57 @@
+a) How many orders were shipped by Speedy Express in total?
+The answer is 54. 
+The followings are the working process: 
+1) Join the tables "Orders" and "Shippers" on ShipperID
+2) Count the number of orders where shipper name is "Speedy Express"
+
+Here is the code:
+
+Select COUNT(orderID) AS "Number of orders shipped by Speedy Express"
+FROM Orders INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID WHERE ShipperName="Speedy Express"
+
+
+
+b) What is the last name of the employee with the most orders?
+The answer is Peacock.
+The followings are the working process:
+1) Join the tables "Orders" and "Employees" on employeeID and group them 
+2) count the total number of orders made by each employee
+3) Select the maximum value of the total number of orders and the corresponding lastname 
+
+Here is the code:
+
+SELECT lastname AS "Last name"
+FROM (SELECT MAX(totalOrders),lastname 
+      FROM (SELECT COUNT(orderId) AS totalOrders, Orders.EmployeeID, lastname 
+		        FROM ORDERS JOIN employees ON Orders.EmployeeID = Employees.EmployeeID GROUP BY Orders.EmployeeID
+            )
+      )
+     
+ 
+c) What product was ordered the most by customers in Germany?
+
+The answer is Boston Crab Meat.
+
+The followings are the working process:
+1) Join the two tables "Orders" and "OrderDetails" on OrderID
+2) Join the table created from step one with "Customers" table on CustomerID
+3) Join the table created in the previous step with "Products" table on ProductID and select those that meet our criteria (country='Germany')
+4) group the data by "ProductID" and sum the quantities of each ProductID
+5) Select the maximum quantity and its corresponding ProductName.
+
+Here is the code:
+
+select ProductName, max(total) as total from 
+(select ProductName, productID, sum(Quantity) as Total from 
+(select ProductName, Country, orderID, b.productID,Quantity, CustomerID from Products as c join 
+(select Country, orderID,productID,Quantity,a.CustomerID from Customers join (SELECT Orders.orderID,productID,Quantity,CustomerID FROM Orders JOIN OrderDetails on Orders.orderID = OrderDetails.orderID) as a on Customers.CustomerID = a.CustomerID) as b
+on c.productID = b.productID
+where Country = 'Germany'
+)
+group by 2, 1
+order by total)
+
+
+
+
+
